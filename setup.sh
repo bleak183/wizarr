@@ -3,9 +3,6 @@
 # Set environment variables for the script
 export REPO_URL="https://github.com/Wizarrrr/wizarr.git"
 
-RANDOM_DIR="/tmp/wizarr-$(date +%s)"
-mkdir "$RANDOM_DIR"
-
 # Declare variables for quick color codes
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -80,13 +77,23 @@ clone_repo() {
 # Build the Docker image
 build_image() {
     echo "Building the Docker image..."
-    docker compose -f $RANDOM_DIR/docker-compose.yml build
+    # Check if the Docker compose file exists if not then exit
+    if [ ! -f "docker-compose.yml" ]; then
+        echo -e "${RED}Docker compose file not found. Please make sure that the docker-compose.yml file exists and try again.${NC}"
+        exit
+    fi
+    docker compose -f docker-compose.yml build
 }
 
 # Run the Docker image
 run_image() {
     echo "Running the Docker image..."
-    docker compose -f $RANDOM_DIR/docker-compose.yml up -d
+    # Check if the Docker compose file exists if not then exit
+    if [ ! -f "docker-compose.yml" ]; then
+        echo -e "${RED}Docker compose file not found. Please make sure that the docker-compose.yml file exists and try again.${NC}"
+        exit
+    fi
+    docker compose -f docker-compose.yml up -d
 }
 
 # Install Docker Compose
@@ -144,10 +151,6 @@ done
 
 # Get version from latest file
 VERSION=$(cat latest)
-
-# Delete the cloned repository from /tmp
-echo -e "${YELLOW}Deleting the cloned repository from tmp...${NC}"
-rm -rf "$RANDOM_DIR"
 
 # Clear the terminal
 clear
