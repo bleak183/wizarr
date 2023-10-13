@@ -33,7 +33,7 @@ To install Wizarr and build it locally, follow these steps:
 
 ## License
 
-Wizarr is open-source software released under the [MIT License](https://github.com/wizarr/wizarr/blob/main/LICENSE). Please review the license terms before using Wizarr.
+Wizarr is open-source software released under the [MIT License](https://github.com/Wizarrrr/wizarr/blob/master/LICENSE.md). Please review the license terms before using Wizarr.
 
 ## Acknowledgments
 
