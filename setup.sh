@@ -3,6 +3,9 @@
 # Set environment variables for the script
 export REPO_URL="https://github.com/Wizarrrr/wizarr.git"
 
+RANDOM_DIR="/tmp/wizarr-$(date +%s)"
+mkdir "$RANDOM_DIR"
+
 # Declare variables for quick color codes
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -77,13 +80,13 @@ clone_repo() {
 # Build the Docker image
 build_image() {
     echo "Building the Docker image..."
-    docker compose -f docker-compose.yml build
+    docker compose -f $RANDOM_DIR/docker-compose.yml build
 }
 
 # Run the Docker image
 run_image() {
     echo "Running the Docker image..."
-    docker compose -f docker-compose.yml up -d
+    docker compose -f $RANDOM_DIR/docker-compose.yml up -d
 }
 
 # Install Docker Compose
@@ -117,11 +120,6 @@ if ! command -v docker-compose &> /dev/null; then
     echo -e "${RED}Docker Compose is not installed. Please install Docker Compose and try again.${NC}"
     exit
 fi
-
-# Clone the repository to /tmp/wizarr-{random}
-RANDOM_DIR="/tmp/wizarr-$(date +%s)"
-mkdir "$RANDOM_DIR"
-cd "$RANDOM_DIR"
 
 # Clone the repository
 clone_repo
